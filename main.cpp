@@ -43,10 +43,14 @@ std::string InfixToPostfix(char* str){
     std::stack<char> postfix;
     std::string output;
 
-    
+    while (!postfix.empty()){
+
+        output += str;
+         postfix.pop();
+
+    }
 
     for(int i = 0; i < std::char_traits<char>::length(str) ; i++){
-        str[i];
 
         if(str[i] >= '0' || str[i] <= '9'){
 
@@ -55,15 +59,38 @@ std::string InfixToPostfix(char* str){
         } else if(str[i] = '('){
 
             postfix.push('(');
+
         } else if(str[i] = ')'){
 
-            
+            while(!postfix.empty() && postfix.top() != '('){
+
+                output += str;
+                postfix.pop();
+
+            }
+
+            postfix.pop();
+        }else{ 
+
+            while (!postfix.empty() && postfix.top() != '(' && Operations(postfix.top()) > Operations(str[i]) || Operations(postfix.top()) == Operations(str[i])){
+                output += str;
+                postfix.pop();
+            }
+
+            postfix.push(str[i]);
 
         }
+
+        while (!postfix.empty()){
+
+            output += str;
+            postfix.pop();
+
+        }
+
     }
    
 
-    
     return output;
 }
 
@@ -128,7 +155,7 @@ int main()
         std::cout << "Enter an arithmetic equation..." << "\n";
         std::cin.getline(str, 80);
         str = AddDelimetersToStr(str);
-        // std::cout << InfixToPostfix(str) << "\n";
+        std::cout << InfixToPostfix(str) << "\n";
     }
 
     return 0;
