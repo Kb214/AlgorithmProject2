@@ -67,6 +67,7 @@ std::string InfixToPostfix(char* str){
     
             while(!postfix.empty() && postfix.top() != '('){
                 output += postfix.top();
+                output += ' ';
                 postfix.pop();
             }
 
@@ -80,6 +81,7 @@ std::string InfixToPostfix(char* str){
             while (!postfix.empty() && postfix.top() != '(' && ((Operations(postfix.top()) > Operations(str[i])) || (Operations(postfix.top()) == Operations(str[i]) && str[i] != '^'))){
                
                 output += postfix.top();
+                output += ' ';
                 postfix.pop();
 
             }
@@ -91,6 +93,7 @@ std::string InfixToPostfix(char* str){
     while (!postfix.empty()){
 
         output += postfix.top();
+        output += ' ';
         postfix.pop();
 
     }
