@@ -17,6 +17,7 @@
 #include <string>
 #include <stack>
 #include <string>
+#include <cmath>
 
 // you can type an arithmetic expression with no, one or more than one spaces
 // between each operator and operand
@@ -39,60 +40,71 @@ int Operations(char op){
 
 }
 
+
 std::string InfixToPostfix(char* str){
     std::stack<char> postfix;
     std::string output;
 
-    while (!postfix.empty()){
 
-        output += str;
-         postfix.pop();
+    for(int i = 0; str[i] != '\0'; i++){
 
-    }
+        if(str[i] == ' '){
+    
+            continue;
+        }
 
-    for(int i = 0; i < std::char_traits<char>::length(str) ; i++){
+        if(str[i] >= '0' && str[i] <= '9'){
 
-        if(str[i] >= '0' || str[i] <= '9'){
+            output += str[i];
 
-            output += str;
-
-        } else if(str[i] = '('){
+        } else if(str[i] == '('){
 
             postfix.push('(');
 
-        } else if(str[i] = ')'){
+        
+        } else if(str[i] == ')'){
 
+    
             while(!postfix.empty() && postfix.top() != '('){
-
-                output += str;
+                output += postfix.top();
                 postfix.pop();
-
             }
 
-            postfix.pop();
-        }else{ 
 
-            while (!postfix.empty() && postfix.top() != '(' && Operations(postfix.top()) > Operations(str[i]) || Operations(postfix.top()) == Operations(str[i])){
-                output += str;
+            if(!postfix.empty()){
+
                 postfix.pop();
+            }
+
+        } else {  
+            while (!postfix.empty() && postfix.top() != '(' && ((Operations(postfix.top()) > Operations(str[i])) || (Operations(postfix.top()) == Operations(str[i]) && str[i] != '^'))){
+               
+                output += postfix.top();
+                postfix.pop();
+
             }
 
             postfix.push(str[i]);
 
         }
+    }
+    while (!postfix.empty()){
 
-        while (!postfix.empty()){
-
-            output += str;
-            postfix.pop();
-
-        }
+        output += postfix.top();
+        postfix.pop();
 
     }
    
-
     return output;
 }
+
+
+
+std::string Evaluate(char* str){
+
+}
+
+
 
 char* AddDelimetersToStr(char* str)
 {
@@ -156,14 +168,9 @@ int main()
         std::cin.getline(str, 80);
         str = AddDelimetersToStr(str);
         std::cout << InfixToPostfix(str) << "\n";
+        
     }
 
     return 0;
 
 }
-
-
-// int main(){
-//     std::cout << "Hello!\n\n";
-//     return 0;
-// }
