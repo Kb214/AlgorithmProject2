@@ -102,13 +102,6 @@ std::string InfixToPostfix(char* str){
 }
 
 
-
-std::string Evaluate(char* str){
-
-}
-
-
-
 char* AddDelimetersToStr(char* str)
 {
 
