@@ -56,10 +56,12 @@ std::string InfixToPostfix(char* str){
         if(str[i] >= '0' && str[i] <= '9'){
 
             output += str[i];
+            output += ' ';
 
         } else if(str[i] == '('){
 
             postfix.push('(');
+            
 
         
         } else if(str[i] == ')'){
